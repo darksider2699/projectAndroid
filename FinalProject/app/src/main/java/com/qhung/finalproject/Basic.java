@@ -13,6 +13,7 @@ public class Basic extends AppCompatActivity {
     EditText edta,edtb;
     Button btnc,btnt,btnm,btnd,btnback;
     TextView tvres;
+    MyDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class Basic extends AppCompatActivity {
         btnd = findViewById(R.id.btn_div);
         btnback = findViewById(R.id.btn_back);
         tvres = findViewById(R.id.tv_res);
+        db = new MyDatabase(this);
         btnc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,6 +37,8 @@ public class Basic extends AppCompatActivity {
                 }
                 else{
                     double res=Double.parseDouble(a)+Double.parseDouble(b);
+                    String s= "("+a+")+("+b+")="+res;
+                    db.addchuoi(s);
                     tvres.setText(String.valueOf(res));
                 }
             }
@@ -49,6 +53,8 @@ public class Basic extends AppCompatActivity {
                 }
                 else{
                     double res=Double.parseDouble(a)-Double.parseDouble(b);
+                    String s= "("+a+")-("+b+")="+res;
+                    db.addchuoi(s);
                     tvres.setText(String.valueOf(res));
                 }
             }
@@ -63,6 +69,8 @@ public class Basic extends AppCompatActivity {
                 }
                 else{
                     double res=Double.parseDouble(a)*Double.parseDouble(b);
+                    String s= "("+a+")*("+b+")="+res;
+                    db.addchuoi(s);
                     tvres.setText(String.valueOf(res));
                 }
             }
@@ -81,6 +89,8 @@ public class Basic extends AppCompatActivity {
                     }
                     else {
                         double res = Double.parseDouble(a) / Double.parseDouble(b);
+                        String s= "("+a+")/("+b+")="+res;
+                        db.addchuoi(s);
                         tvres.setText(String.valueOf(res));
                     }
                 }

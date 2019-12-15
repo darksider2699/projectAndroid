@@ -51,6 +51,16 @@
 
         </Button>
 
+        <Button
+            android:layout_margin="16dp"
+            android:id="@+id/btn_4"
+            android:text="Lịch sử"
+            android:textSize="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </Button>
+
     </LinearLayout>
 
 

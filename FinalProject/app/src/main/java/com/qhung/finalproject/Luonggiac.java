@@ -16,6 +16,7 @@ public class Luonggiac extends AppCompatActivity {
     Button btnSin,btnCos,btnTan,btnCotan,btnb;
     RadioGroup rdg;
     TextView tvres;
+    MyDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class Luonggiac extends AppCompatActivity {
         btnb = findViewById(R.id.btn_back);
         rdg = findViewById(R.id.rdg);
         tvres = findViewById(R.id.tv_res);
+        db = new MyDatabase(this);
         btnSin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,10 +39,15 @@ public class Luonggiac extends AppCompatActivity {
                 }
                 else{
                     double x = Double.parseDouble(a);
+                    String s="Sin("+x;
                     int i=rdg.getCheckedRadioButtonId();
                     if (i==R.id.rdd){
                         x=x/180*Math.PI;
+                        s+=" độ)=";
                     }
+                    else s+=" radian)=";
+                    s=s+Math.sin(x);
+                    db.addchuoi(s);
                     tvres.setText(Math.sin(x)+"");
                 }
             }
@@ -54,10 +61,15 @@ public class Luonggiac extends AppCompatActivity {
                 }
                 else{
                     double x = Double.parseDouble(a);
+                    String s="Cos("+x;
                     int i=rdg.getCheckedRadioButtonId();
                     if (i==R.id.rdd){
                         x=x/180*Math.PI;
+                        s+=" độ)=";
                     }
+                    else s+=" radian)=";
+                    s=s+Math.cos(x);
+                    db.addchuoi(s);
                     tvres.setText(Math.cos(x)+"");
                 }
             }
@@ -71,10 +83,15 @@ public class Luonggiac extends AppCompatActivity {
                 }
                 else{
                     double x = Double.parseDouble(a);
+                    String s="Tan("+x;
                     int i=rdg.getCheckedRadioButtonId();
                     if (i==R.id.rdd){
                         x=x/180*Math.PI;
+                        s+=" độ)=";
                     }
+                    else s+=" radian)=";
+                    s=s+Math.tan(x);
+                    db.addchuoi(s);
                     tvres.setText(Math.tan(x)+"");
                 }
             }
@@ -88,10 +105,15 @@ public class Luonggiac extends AppCompatActivity {
                 }
                 else{
                     double x = Double.parseDouble(a);
+                    String s="Cotan("+x;
                     int i=rdg.getCheckedRadioButtonId();
                     if (i==R.id.rdd){
                         x=x/180*Math.PI;
+                        s+=" độ)=";
                     }
+                    else s+=" radian)=";
+                    s=s+1.0/Math.tan(x);
+                    db.addchuoi(s);
                     tvres.setText(1.0/Math.tan(x)+"");
                 }
             }

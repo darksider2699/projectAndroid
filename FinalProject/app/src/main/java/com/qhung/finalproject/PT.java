@@ -16,6 +16,7 @@ public class PT extends AppCompatActivity {
     TextView tvpt,tvres;
     Button btn,btn_back;
     String a="",b="",c="",res="";
+    MyDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class PT extends AppCompatActivity {
         tvres = findViewById(R.id.tv_res);
         btn = findViewById(R.id.btn);
         tvpt.setText(res);
+        db = new MyDatabase(this);
         edta.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -37,14 +39,15 @@ public class PT extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 a=charSequence.toString();
                 res="";
-                if (!a.isEmpty()) res="("+a+")x^2";
-                if (!b.isEmpty())
+                if (!a.isEmpty() && !a.equals("0") && !a.equals("-0")) res="("+a+")x^2";
+                if (!b.isEmpty() && !b.equals("0") && !b.equals("-0"))
                     if (res.isEmpty()) res="("+b+")x";
                         else res=res+"+("+b+")x";
-                if (!c.isEmpty())
+                if (!c.isEmpty() && !c.equals("0") && !c.equals("-0"))
                     if (res.isEmpty()) res="("+c+")";
                     else res=res+"+("+c+")";
                 if (!res.isEmpty()) res=res+"=0";
+                if (res.isEmpty()) res="0=0";
                 tvpt.setText(res);
             }
 
@@ -63,14 +66,15 @@ public class PT extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 b=charSequence.toString();
                 res="";
-                if (!a.isEmpty()) res="("+a+")x^2";
-                if (!b.isEmpty())
+                if (!a.isEmpty() && !a.equals("0") && !a.equals("-0")) res="("+a+")x^2";
+                if (!b.isEmpty() && !b.equals("0") && !b.equals("-0"))
                     if (res.isEmpty()) res="("+b+")x";
                     else res=res+"+("+b+")x";
-                if (!c.isEmpty())
+                if (!c.isEmpty() && !c.equals("0") && !c.equals("-0"))
                     if (res.isEmpty()) res="("+c+")";
                     else res=res+"+("+c+")";
                 if (!res.isEmpty()) res=res+"=0";
+                if (res.isEmpty()) res="0=0";
                 tvpt.setText(res);
             }
 
@@ -89,15 +93,17 @@ public class PT extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 c=charSequence.toString();
                 res="";
-                if (!a.isEmpty()) res="("+a+")x^2";
-                if (!b.isEmpty())
+                if (!a.isEmpty() && !a.equals("0") && !a.equals("-0")) res="("+a+")x^2";
+                if (!b.isEmpty() && !b.equals("0") && !b.equals("-0"))
                     if (res.isEmpty()) res="("+b+")x";
                     else res=res+"+("+b+")x";
-                if (!c.isEmpty())
+                if (!c.isEmpty() && !c.equals("0") && !c.equals("-0"))
                     if (res.isEmpty()) res="("+c+")";
                     else res=res+"+("+c+")";
                 if (!res.isEmpty()) res=res+"=0";
+                if (res.isEmpty()) res="0=0";
                 tvpt.setText(res);
+
             }
 
             @Override
@@ -116,6 +122,17 @@ public class PT extends AppCompatActivity {
                     if (!a.isEmpty()) x=Double.parseDouble(a);
                     if (!b.isEmpty()) y=Double.parseDouble(b);
                     if (!c.isEmpty()) z=Double.parseDouble(c);
+                    res="";
+                    if (!a.isEmpty() && !a.equals("0") && !a.equals("-0")) res="("+a+")x^2";
+                    if (!b.isEmpty() && !b.equals("0") && !b.equals("-0"))
+                        if (res.isEmpty()) res="("+b+")x";
+                        else res=res+"+("+b+")x";
+                    if (!c.isEmpty() && !c.equals("0") && !c.equals("-0"))
+                        if (res.isEmpty()) res="("+c+")";
+                        else res=res+"+("+c+")";
+                    if (!res.isEmpty()) res=res+"=0";
+                    if (res.isEmpty()) res="0=0";
+                    res+="\nKết quả: ";
                     if (x==0){
                         if (y==0){
                             if (z==0)
@@ -130,6 +147,8 @@ public class PT extends AppCompatActivity {
                         if (delta==0) tvres.setText("x="+(-y/2/x));
                         if (delta>0) tvres.setText("x1="+((-y+Math.sqrt(delta))/2/x)+" và x2="+((-y-Math.sqrt(delta))/2/x));
                     }
+                    res+=tvres.getText();
+                    db.addchuoi(res);
                 }
             }
         });
